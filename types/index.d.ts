@@ -16,3 +16,9 @@ interface CreateQuoteData {
   text: string;
   mediaUrl: File | null;
 }
+
+interface JWTTokenData {
+  username: string;
+  iat: number;
+  exp: number;
+}

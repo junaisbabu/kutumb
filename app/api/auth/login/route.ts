@@ -1,4 +1,5 @@
 import { type NextRequest } from "next/server";
+import jwt from "jsonwebtoken";
 
 export async function POST(req: NextRequest) {
   try {
@@ -25,10 +26,13 @@ export async function POST(req: NextRequest) {
 
     const data = await res.json();
 
+    const decode = jwt.decode(data.token) as JWTTokenData;
+    const expires = decode.exp ? new Date(decode.exp * 1000).toUTCString() : "";
+
     return new Response("Logged In Successfully!", {
       status: 201,
       headers: {
-        "Set-Cookie": `token=${data.token}; path=/; samesite=lax; httponly=true;`,
+        "Set-Cookie": `token=${data.token}; path=/; samesite=lax; httponly=true; secure=${process.env.NODE_ENV} === 'production'; expires=${expires};`,
         "Content-Type": "application/json",
       },
     });
