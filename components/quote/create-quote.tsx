@@ -65,7 +65,10 @@ function CreateQuote() {
         });
 
         if (res.ok) {
-          toast({ title: "Quote created successfully!" });
+          toast({
+            title: "Quote created successfully!",
+            className: "bg-emerald-600 text-zinc-50",
+          });
         }
 
         form.reset();
