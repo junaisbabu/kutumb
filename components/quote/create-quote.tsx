@@ -28,7 +28,7 @@ import { X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const FormSchema = z.object({
-  text: z.string({ required_error: "Text is required" }),
+  text: z.string().min(1, { message: "Text is required" }),
   mediaUrl: z.instanceof(File, { message: "Media is required" }),
 });
 
