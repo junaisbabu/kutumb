@@ -48,28 +48,26 @@ export default function LoginForm() {
   const onSubmit: SubmitHandler<UserData> = async (data) => {
     setIsLoading(true);
 
-    try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+    const res = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
 
-      if (!res.ok) {
-        const { message, error } = await res.json();
-        return toast({
-          variant: "destructive",
-          title: message,
-          description: error,
-        });
-      }
-
-      redirect("/");
-    } finally {
+    if (!res.ok) {
+      const { message, error } = await res.json();
       setIsLoading(false);
+      return toast({
+        variant: "destructive",
+        title: message,
+        description: error,
+      });
     }
+
+    setIsLoading(false);
+    redirect("/");
   };
 
   return (
