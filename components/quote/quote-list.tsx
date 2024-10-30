@@ -11,11 +11,18 @@ const NUMBER_OF_QUOTES_TO_FETCH = 10;
 function QuoteList({ initialQuotes }: { initialQuotes: QuoteData[] }) {
   const [offset, setOffset] = useState(NUMBER_OF_QUOTES_TO_FETCH);
   const [quotes, setQuotes] = useState<QuoteData[]>(initialQuotes);
+  const [hasMore, setHasMore] = useState(true);
   const { ref, inView } = useInView();
 
   const loadMoreUsers = async () => {
     const newQuotes = await getQuotes(NUMBER_OF_QUOTES_TO_FETCH, offset);
-    if (!newQuotes?.length) return;
+
+    if (!newQuotes?.length) {
+      setHasMore(false);
+
+      return;
+    }
+
     setQuotes((oldQuotes) => [...oldQuotes, ...newQuotes]);
     setOffset((offset) => offset + NUMBER_OF_QUOTES_TO_FETCH);
   };
@@ -37,12 +44,17 @@ function QuoteList({ initialQuotes }: { initialQuotes: QuoteData[] }) {
           );
         })}
       </ul>
-      <div className="py-8">
-        <div className="flex flex-col gap-1 text-center text-primary" ref={ref}>
-          <LoaderCircle className="mx-auto animate-spin" size={40} />
-          <span>Loading more...</span>
+      {hasMore && (
+        <div className="py-8">
+          <div
+            className="flex flex-col gap-1 text-center text-primary"
+            ref={ref}
+          >
+            <LoaderCircle className="mx-auto animate-spin" size={40} />
+            <span>Loading more...</span>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

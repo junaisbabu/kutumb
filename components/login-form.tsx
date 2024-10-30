@@ -47,7 +47,6 @@ export default function LoginForm() {
   });
 
   const onSubmit: SubmitHandler<UserData> = async (data) => {
-    console.log("data", data);
     setIsLoading(true);
 
     try {
