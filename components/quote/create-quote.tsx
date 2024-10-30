@@ -26,6 +26,7 @@ import { ChangeEvent, useState } from "react";
 import Image from "next/image";
 import { X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 const FormSchema = z.object({
   text: z.string().min(1, { message: "Text is required" }),
@@ -34,6 +35,7 @@ const FormSchema = z.object({
 
 function CreateQuote() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
   const { toast } = useToast();
   const form = useForm<CreateQuoteData, z.infer<typeof FormSchema>>({
     defaultValues: {
@@ -69,6 +71,7 @@ function CreateQuote() {
             title: "Quote created successfully!",
             className: "bg-emerald-600 text-zinc-50",
           });
+          router.push("/");
         }
 
         form.reset();
@@ -157,7 +160,7 @@ function CreateQuote() {
               )}
               <div className="flex justify-between pt-4">
                 <Link href="/">
-                  <Button variant="outline">Go Back</Button>
+                  <Button variant="destructive">Cancel</Button>
                 </Link>
                 <Button
                   className="w-20"

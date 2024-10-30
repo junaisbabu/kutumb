@@ -7,6 +7,10 @@ interface QuoteData {
   updatedAt: Date;
 }
 
+interface GetQuotesResponse {
+  data: QuoteData[];
+}
+
 interface UserData {
   username: string;
   otp: string;

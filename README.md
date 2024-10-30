@@ -1,25 +1,18 @@
 # Quote App
 
 ## Description
+
 The Quote App: a platform for creating and exploring a collection of quotes.
 
-## Features
-* 🌗 **Theme Switch**: Switch between light and dark modes.
-* ✅ **Form Validations**: Validate user input for a better experience.
-* 🔒 **Protected Routes**: Secure user access to certain pages, requiring authentication.
-* ⏳ **Loading Indicators**: Display skeletons or spinners during loading states for better user feedback.
-* ⚠️ **Error Handling**: Handle API errors smoothly to improve user experience.
-* 📱 **Responsive Design**: Ensure the app works well on all devices.
-* 📚 **Pagination**: Navigate through quotes with pagination, disabling next and previous actions when no more quotes are available.
-
 ## Technologies Used
-* Next.js
-* Tailwind CSS
-* TypeScript
-* React Hook Form & Zod
-* ShadCN UI
-* Next Themes
-* JWT
+
+- Next.js
+- Tailwind CSS
+- TypeScript
+- React Hook Form & Zod
+- ShadCN UI
+- Next Themes
+- JWT
 
 <hr />
 

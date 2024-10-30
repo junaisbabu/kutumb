@@ -23,10 +23,19 @@ import {
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
 
 const FormSchema = z.object({
-  username: z.string({ required_error: "Please enter your username" }),
-  otp: z.string({ required_error: "Please enter the OTP" }),
+  username: z
+    .string({ required_error: "Please enter your username" })
+    .min(3, { message: "The username must be at least 3 characters long." }),
+  otp: z
+    .string({ required_error: "Please enter the OTP" })
+    .min(4, { message: "Please enter valid OTP" }),
 });
 
 export default function LoginForm() {
@@ -38,6 +47,7 @@ export default function LoginForm() {
   });
 
   const onSubmit: SubmitHandler<UserData> = async (data) => {
+    console.log("data", data);
     setIsLoading(true);
 
     try {
@@ -98,7 +108,14 @@ export default function LoginForm() {
                   <FormItem>
                     <FormLabel>OTP</FormLabel>
                     <FormControl>
-                      <Input type="text" {...field} />
+                      <InputOTP maxLength={4} {...field}>
+                        <InputOTPGroup>
+                          <InputOTPSlot index={0} />
+                          <InputOTPSlot index={1} />
+                          <InputOTPSlot index={2} />
+                          <InputOTPSlot index={3} />
+                        </InputOTPGroup>
+                      </InputOTP>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
