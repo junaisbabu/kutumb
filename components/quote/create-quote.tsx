@@ -22,11 +22,12 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import Image from "next/image";
 import { X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
+import { hasSession } from "@/app/lib/session";
 
 const FormSchema = z.object({
   text: z.string().min(1, { message: "Text is required" }),
@@ -44,6 +45,18 @@ function CreateQuote() {
     },
     resolver: zodResolver(FormSchema),
   });
+
+  const redirectToLogin = async () => {
+    const hasToken = await hasSession();
+    if (!hasToken) {
+      redirect("/login");
+    }
+    return;
+  };
+
+  useEffect(() => {
+    redirectToLogin();
+  }, []);
 
   const onSubmit: SubmitHandler<CreateQuoteData> = async (data) => {
     setIsLoading(true);
