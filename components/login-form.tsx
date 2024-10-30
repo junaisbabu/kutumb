@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/form";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import {
   InputOTP,
   InputOTPGroup,
@@ -41,7 +41,6 @@ const FormSchema = z.object({
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { toast } = useToast();
-  const router = useRouter();
   const form = useForm<UserData, z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
@@ -67,7 +66,7 @@ export default function LoginForm() {
         });
       }
 
-      router.push("/");
+      redirect("/");
     } finally {
       setIsLoading(false);
     }
